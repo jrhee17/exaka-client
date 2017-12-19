@@ -1,0 +1,12 @@
+<div class="container py-5">
+  <div class="row">
+    <div *ngFor="let tag of tags" class="my-3 col-lg-3 col-md-4 col-sm-6">
+      <basic-tag [tag]="tag"></basic-tag>
+      <span style="color: #777777;"><small>x {{tag.count}}</small></span>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <ngb-pagination (pageChange)="pageChangeEvent($event)" [collectionSize]="count" [(page)]="page"
+                  [pageSize]="per_page" aria-label="Default pagination"></ngb-pagination>
+</div>

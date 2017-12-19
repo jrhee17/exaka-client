@@ -1,0 +1,45 @@
+<div *ngIf="profile" class="d-flex flex-row justify-content-end">
+
+  <div class="d-flex flex-row justify-content-end align-items-center py-1 px-2" style="background-color: #f3f3f3;">
+    <div class="m-1">
+      <img class="rounded" [src]="profile.getImage()" width="48px" height="48px">
+    </div>
+    <div class="m-1">
+      <span style="font-size: 11pt; color: #777777; font-weight: 500;">{{ profile?.name }}</span>
+    </div>
+  </div>
+
+</div>
+
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]=" ['./summary'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Summary</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]=" ['./questions'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Questions</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]=" ['./answers'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Answers</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]=" ['./tags'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Tags</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]=" ['./favorites'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Favorites</a>
+    </li>
+    <!--<li class="nav-item">-->
+      <!--<a class="nav-link" [routerLink]=" ['./actions'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Actions</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a class="nav-link" [routerLink]=" ['./responses'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Responses</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a class="nav-link" [routerLink]=" ['./votes'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Votes</a>-->
+    <!--</li>-->
+    <!--<li class="nav-item">-->
+      <!--<a class="nav-link" [routerLink]=" ['./reputations'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">Reputations</a>-->
+    <!--</li>-->
+  </ul>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,39 @@
+<div class="p-3 my-1">
+  <h6 class="my-3" style="color: #777777">Top Posts</h6>
+
+  <div class="d-flex justify-content-between">
+    <ngb-tabset (tabChange)="blockTypeTabChange($event)" justify="end">
+      <ngb-tab id="profile-main-posts-tabs-all" title="All"><ng-template ngbTabContent></ng-template></ngb-tab>
+      <ngb-tab id="profile-main-posts-tabs-questions" title="Questions"><ng-template ngbTabContent></ng-template></ngb-tab>
+      <ngb-tab id="profile-main-posts-tabs-answers" title="Answers"><ng-template ngbTabContent></ng-template></ngb-tab>
+    </ngb-tabset>
+    <ngb-tabset (tabChange)="orderTypeTabChange($event)">
+      <ngb-tab id="profile-main-posts-tabs-votes" title="Votes"><ng-template ngbTabContent></ng-template></ngb-tab>
+      <ngb-tab id="profile-main-posts-tabs-newest" title="Newest"><ng-template ngbTabContent></ng-template></ngb-tab>
+    </ngb-tabset>
+  </div>
+
+  <div *ngFor="let block of blocks" class="p-1 d-flex justify-content-between" style="border: 1px solid #d3d3d3">
+    <div class="d-flex justify-content-start align-items-center">
+      <div *ngIf="block._type == 'MainBlock'" class="d-inline-block mr-1 p-2">
+        <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+      </div>
+      <div *ngIf="block._type == 'SubBlock'" class="d-inline-block mr-1 p-2">
+        <i class="fa fa-comment-o" aria-hidden="true"></i>
+      </div>
+      <div class="mr-3 px-3" [ngClass]="block.embedded_post.selected ? 'selected_background' : ''">
+        <div class="d-flex flex-column align-items-center">
+          <span>{{ block.vote | formatNum }}</span>
+        </div>
+      </div>
+      <div>
+        <a style="color: #56658d;" [routerLink]="['/post', block.embedded_post._id, 'answers']">
+          <span style="font-size: 11pt;">{{ block.embedded_post.title }}</span>
+        </a>
+      </div>
+    </div>
+    <div style="min-width: 100px;" class="d-flex justify-content-end mx-2">
+      <small>{{ block.created_at | timeSince }}</small>
+    </div>
+  </div>
+</div>

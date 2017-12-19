@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json
+static/
+dist/
+coverage/
+dll/
+compiled/
+.awcache/
+*.swp

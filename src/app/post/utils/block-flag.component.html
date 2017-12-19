@@ -1,0 +1,30 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">I am flagging this post because...</h5>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="custom-controls-stacked">
+      <label *ngFor="let flag of flags" class="custom-control custom-radio">
+        <input id="flagReasonRadio" [(ngModel)]="blockFlag.code" name="radio-stacked" type="radio" class="custom-control-input" [value]="flag.code">
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"><span class="font-weight-5 main-font">{{ flag.name }}</span> <br/>
+        <small class="sub-font">{{ flag.description }}</small>
+        </span>
+        <br/>
+      </label>
+    </div>
+    <div>
+      <textarea class="w-100" *ngIf="exposeAdditionalTextArea()" [(ngModel)]="blockFlag.additional_text"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer flex-d justify-content-between">
+    <button type="button" class="exaka-basic-button" (click)="c()">Close</button>
+    <button type="button" class="exaka-basic-button" [disabled]="!submittable()" (click)="submitButtonPressed()">Submit</button>
+  </div>
+</ng-template>
+
+<button type="button" class="btn btn-link" [disabled]="disabled" (click)="open(content)">flag</button>
+<ngb-alert *ngIf="successMessage" type="success" style="position: absolute;" (close)="successMessage = null">{{ successMessage }}</ngb-alert>

@@ -1,0 +1,32 @@
+<a (click)="toggleButtonClicked()">
+  <div class="p-3 mt-3 d-flex justify-content-between" [style.background-color]="toggled ? '#efefef' : 'white'" style="border: 1px solid lightgrey;">
+    <div>
+      <div *ngIf="prevContentHistory">
+        <h5 style="display: inline">{{ currContentHistory.note }}</h5>
+        <small>(
+          <span style="color: green;">++{{ addedCount }}</span>,
+          <span style="color: red;">--{{ removedCount }}</span>)
+        </small>
+      </div>
+    </div>
+
+    <div>
+      <img [src]="currContentHistory.owner.image" class="rounded" height="22px" width="22px">
+      <span>{{ currContentHistory.owner.name }}</span>
+    </div>
+  </div>
+</a>
+
+
+<div class="row p-3" *ngIf="toggled">
+  <div class="col-md-6">
+    <div class="p-1" *ngIf="prevContentHistory">{{ prevContentHistory.getCreatedAt() }}</div>
+    <div *ngIf="prevContentHistory" class="marked" style="border: 1px solid #d3d3d3;" [Marked]="prevContentHistory.content"></div>
+  </div>
+  <div class="col-md-6">
+    <div class="p-1">{{ currContentHistory.getCreatedAt() }}</div>
+    <div  style="border: 1px solid #d3d3d3;" class="marked" [Marked]="currContentHistory.content"></div>
+  </div>
+</div>
+
+

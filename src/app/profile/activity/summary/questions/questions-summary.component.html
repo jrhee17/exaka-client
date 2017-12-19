@@ -1,0 +1,21 @@
+<div class="p-3 my-1">
+  <h5 class="my-3" style="color: #777777;">Questions</h5>
+
+  <ngb-tabset (tabChange)="tabChange($event)">
+    <ngb-tab id="tab-votes" title="votes"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-activity" title="activity"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-newest" title="newest"><ng-template ngbTabContent></ng-template></ngb-tab>
+  </ngb-tabset>
+
+  <div class="my-3">
+    <div *ngFor="let post of posts" class="d-flex justify-content-start align-items-center my-2">
+      <span [ngClass]="post.selected_block ? 'sub-selected' : 'sub-non-selected'">{{ post.main_block.vote | formatNum }}</span>
+      <a class="ml-3" style="display: block; color: #777777; font-size: 10pt; overflow: hidden; text-overflow: ellipsis;
+        white-space: nowrap;" [routerLink]="['/post', post._id, 'answers']">{{ post.title }}</a>
+    </div>
+  </div>
+
+  <div class="my-3 d-flex justify-content-end">
+    <a style="color: #777777;" [routerLink]="['../questions']">View more</a>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-start align-items-center p-2" style="border-top: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf;">
+  <div class="mr-3">
+    <span [ngClass]="{positive_score: score > 0 ,negative_score: score < 0}">
+      {{ score }}
+    </span>
+  </div>
+  <div class="mr-3">
+    <a (click)="toggleButtonClicked()">
+      <i class="fa fa-lg" aria-hidden="true" [ngClass]="toggled ? 'fa-caret-down' : 'fa-caret-right'"></i>
+    </a>
+  </div>
+  <div class="mr-3">
+    <small>{{ formattedDate() }}</small>
+  </div>
+</div>
+
+
+<div style="background-color: rgba(12, 13, 14, 0.02);" >
+  <div id="loading-content" class="d-flex justify-content-center align-items-center">
+    <sk-three-bounce [isRunning]="loading"></sk-three-bounce>
+  </div>
+
+  <div *ngFor="let scoreEvent of scoreEvents" class="p-2 d-flex flex-row justify-content-start align-items-center">
+    <div class="mr-2">
+  <span [ngClass]="{positive_score: score > 0 ,negative_score: score < 0}">
+    <small>{{ scoreEvent.score }}</small>
+  </span>
+    </div>
+    <div style="color: #d3d3d3;" class="mr-5">
+      <small>{{ scoreEvent.getTime() }}</small>
+    </div>
+    <div class="mr-2">
+      <small>{{ scoreEvent.type }} - {{ scoreEvent.action }}</small>
+    </div>
+    <div>
+      <small><a class="text-primary" [routerLink]="['/post', scoreEvent.post_id, 'answers']">{{ scoreEvent.post_title }}</a></small>
+    </div>
+  </div>
+</div>
+
+

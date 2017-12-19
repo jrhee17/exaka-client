@@ -1,0 +1,44 @@
+<form #commentForm="ngForm">
+  <div class="row">
+    <textarea cols="3" class="col-md-9 rounded" [(ngModel)]="comment.content" name="content" style="border: 1px solid #aaa;"
+              required minlength="15" maxlength="1024" #commentContent="ngModel"></textarea>
+    <div class="col-md-3">
+      <button type="button" class="exaka-basic-button"
+              [disabled]="!commentForm.valid || !auth" (click)="addCommentButtonClicked()">Add Comment</button>
+    </div>
+  </div>
+
+  <div *ngIf="commentContent.errors && (commentContent.dirty || commentContent.touched)"
+       class="alert alert-danger">
+    <div [hidden]="!commentContent.errors.required">
+      content is required
+    </div>
+    <div [hidden]="!commentContent.errors.minlength">
+      content must be at least 15 characters long.
+    </div>
+    <div [hidden]="!commentContent.errors.maxlength">
+      content cannot be more than 1024 characters long.
+    </div>
+  </div>
+
+  <div *ngIf="!auth" class="my-2 p-3" style="border: 1px solid #efefef">
+    <span>You must</span>
+    <a (click)="loginButtonPressed()"><u>Login</u></a>
+    <span>or</span>
+    <a (click)="signupButtonPressed()"><u>Sign Up</u></a>
+    <span>to leave a comment</span>
+
+    <hr/>
+
+    <div>
+      <a (click)="googleButtonClicked()" class="my-1 btn btn-social btn-secondary w-100">
+        <span class="fa fa-google"></span>
+        Sign in with Google
+      </a>
+      <a (click)="githubButtonClicked()" class="my-1 btn btn-social btn-secondary w-100">
+        <span class="fa fa-github"></span>
+        Sign in with Github
+      </a>
+    </div>
+  </div>
+</form>

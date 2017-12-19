@@ -1,0 +1,18 @@
+<div class="container">
+  <h5>Delete your account</h5>
+
+  <hr>
+
+  <div style="text-align: center; background-color: #EFEFEF; border: 1px #d4d4d4 solid; padding: 10px;">
+      When you delete your account, your profile will be permanently removed. This action cannot be reversed.
+  </div>
+
+  <hr>
+
+  <button class="btn btn-secondary profile-delete-btn" (click)="deleteButtonClicked()">Delete</button>
+
+  <div *ngIf="successMessage" style="margin: 30px;">
+    <ngb-alert type="success" [dismissible]="false">{{successMessage}}</ngb-alert>
+  </div>
+
+</div>

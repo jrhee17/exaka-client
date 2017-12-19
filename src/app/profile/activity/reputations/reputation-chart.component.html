@@ -1,0 +1,20 @@
+
+
+<div class="d-flex flex-column align-items-center m-5" >
+
+  <h5>{{ getDateRange() }}</h5>
+
+  <div *ngIf="isDataAvailable">
+    <div style="display: block;">
+      <canvas baseChart width="350" height="350"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+</div>

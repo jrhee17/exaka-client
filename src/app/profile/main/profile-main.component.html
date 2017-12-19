@@ -1,0 +1,76 @@
+<div *ngIf="profile" class="d-flex justify-content-start">
+  <div class="flex-column justify-content-center">
+    <div style="border: 1px solid #d3d3d3;" class="p-3">
+      <div>
+        <img [src]="profile.getImage()" width="164" height="164">
+      </div>
+      <div class="text-center mt-3">
+        <span class="lead" style="color: #777">{{ profile.score | formatNum }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column  w-100">
+    <div class="p-3 d-flex justify-content-between">
+      <div>
+        <div class="d-flex justify-content-start align-items-center">
+          <span class="lead mr-3" style="color: #555">{{ profile.name }}</span> <span class="badge badge-default"> top {{ profile.getRoundedPercentage() }}% overall </span>
+        </div>
+        <div>
+          <span style="color: #999">{{ profile.about_me }}</span>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column justify-content-start">
+        <div class="d-flex justify-content-start">
+          <div class="text-center p-2">
+            <span><b>{{ profile.num_answers }}</b></span> <br/>
+            <small>Answers</small>
+          </div>
+          <div class="text-center p-2">
+            <span><b>{{ profile.num_questions }}</b></span> <br/>
+            <small>Questions</small>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center">
+          <div>
+            <i class="fa fa-github" aria-hidden="true"></i>
+          </div>
+          <div class="ml-2">
+            <a [attr.href]="profile.github_link" class="text-muted"><small>{{ profile.github_link }}</small></a>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center">
+          <div>
+            <i class="fa fa-link" aria-hidden="true"></i>
+          </div>
+          <div class="ml-2">
+            <a [attr.href]="profile.website_link" class="text-muted"><small>{{ profile.website_link }}</small></a>
+          </div>
+        </div>
+
+        <div *ngIf="profile.created_at">
+          <small>Member since {{ profile.created_at.toLocaleDateString() }}</small>
+        </div>
+        <div *ngIf="profile.last_seen_at">
+          <small>Last seen at {{ profile.last_seen_at.toLocaleString() }}</small>
+        </div>
+
+        <div>
+          <small>{{ profile.profile_views }} profile views</small>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <profile-main-tags></profile-main-tags>
+    </div>
+    <div>
+      <profile-main-posts></profile-main-posts>
+    </div>
+  </div>
+
+</div>

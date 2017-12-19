@@ -1,0 +1,59 @@
+<div class="container-fluid mx-5 p-5">
+  <div>
+    <ngb-tabset (tabChange)="tabChange($event)" justify="end">
+      <ngb-tab id="tab-tag-detail-new" title="New"><ng-template ngbTabContent></ng-template></ngb-tab>
+      <ngb-tab id="tab-tag-detail-active" title="Active"><ng-template ngbTabContent></ng-template></ngb-tab>
+    </ngb-tabset>
+
+    <div *ngIf="tag" style="border: 1px solid #d3d3d3;">
+      <div>
+        <small>{{tag.name}}</small>
+        x
+        <small>{{ tag.count }}</small>
+      </div>
+      <div>
+        <small> {{tag.today_count}} asked today, {{tag.week_count}} this week</small>
+      </div>
+    </div>
+
+    <div *ngFor="let post of posts" class="row py-2" style="border-top: 1px solid #d3d3d3; border-bottom: 1px solid #d3d3d3;">
+      <div class="col-md-2">
+        <div>Vote: {{post.main_block.vote}}</div>
+        <div>Views: {{post.views}}</div>
+        <div>Answers: {{post.sub_block_count}}</div>
+      </div>
+      <div class="col-md-10">
+        <a [routerLink]="['/post', post._id]">{{ post.title }}</a>
+        <div style="word-wrap: break-word">
+          <span>{{post.main_block.content}}</span>
+        </div>
+        <div>
+          <a *ngFor="let tag of post.tags" [routerLink]="['/tags', tag.name]" class="px-2 py-1 mr-2 rounded" style="background-color: #E1ECF4; color: #39739d;">
+            <small>{{tag.name}}</small>
+          </a>
+        </div>
+        <div class="d-flex justify-content-end">
+          <div class="d-flex flex-column">
+            <div>
+              <img [src]="post.owner.getImage()" height="44" width="44">
+            </div>
+            <div>
+              <a [routerLink]="['/profiles', post.owner._id]"><span>{{post.owner.name}}</span></a>
+            </div>
+            <div>
+              {{ post.created_at }}
+            </div>
+            <div>
+              {{ post.owner.score }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <ngb-pagination (pageChange)="pageChangeEvent($event)" [collectionSize]="count" [(page)]="page"
+                    [pageSize]="per_page" aria-label="Default pagination"></ngb-pagination>
+  </div>
+</div>

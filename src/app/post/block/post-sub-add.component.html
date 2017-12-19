@@ -1,0 +1,66 @@
+
+<div class="d-flex justify-content-start mt-5">
+  <h5 style="color: #777777;">Post your answer</h5>
+</div>
+
+<form #subblockForm="ngForm" class="py-3">
+
+  <div class="row">
+    <a (click)="modal.open()">
+      <i class="fa fa-file-image-o fa-border" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="row" style="height: 400px;">
+    <textarea class="col-md-6" style="height: 100%; border: 1px solid #aaaaaa;" [(ngModel)]="subBlock.content" name="content" required
+              minlength="30" maxlength="30000" #subblockContent="ngModel"></textarea>
+    <div [Marked]="subBlock.content" class="marked preview col-md-6">
+    </div>
+
+  </div>
+
+  <div *ngIf="subblockContent.errors && (subblockContent.dirty || subblockContent.touched)"
+       class="alert alert-danger">
+    <div [hidden]="!subblockContent.errors.required">
+      content is required
+    </div>
+    <div [hidden]="!subblockContent.errors.minlength">
+      content must be at least 30 characters long.
+    </div>
+    <div [hidden]="!subblockContent.errors.maxlength">
+      content cannot be more than 30000 characters long.
+    </div>
+  </div>
+
+  <div *ngIf="modelError">
+    <ngb-alert [dismissible]="false" *ngFor="let errorMessage of modelError.getErrors()">
+      {{ errorMessage }}
+    </ngb-alert>
+  </div>
+
+  <div *ngIf="!auth" class="my-2 p-3 col-md-5" style="border: 1px solid #efefef">
+    <span>You must</span>
+    <a (click)="loginButtonPressed()"><u>Login</u></a>
+    <span>or</span>
+    <a (click)="signupButtonPressed()"><u>Sign Up</u></a>
+    <span>to leave an answer</span>
+
+    <hr/>
+
+    <div>
+      <a (click)="googleButtonClicked()" class="my-1 btn btn-social btn-secondary w-100">
+        <span class="fa fa-google"></span>
+        Sign in with Google
+      </a>
+      <a (click)="githubButtonClicked()" class="my-1 btn btn-social btn-secondary w-100">
+        <span class="fa fa-github"></span>
+        Sign in with Github
+      </a>
+    </div>
+  </div>
+
+
+  <button type="button" [disabled]="!subblockForm.valid || !auth" class="exaka-basic-button mt-2" (click)="submitButtonClicked()">Submit</button>
+
+</form>
+
+<image-upload-modal #modal (uploadComplete)="selectUploadedImage($event)"></image-upload-modal>

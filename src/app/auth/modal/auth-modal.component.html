@@ -1,0 +1,26 @@
+<a [ngbPopover]="popContent" placement="right" #popover="ngbPopover" (click)="popoverClicked($event)" triggers="manual">
+  <ng-content></ng-content>
+</a>
+
+<ng-template #popContent>
+  <div class="p-2 auth-modal">
+
+    <a (click)="loginButtonPressed()">Login</a> <span>or</span>
+    <a (click)="signupButtonPressed()">Signup</a>!
+
+    <hr/>
+
+    <div>
+      <a (click)="googleButtonClicked()" class="my-1 btn btn-social btn-secondary w-100">
+        <span class="fa fa-google"></span>
+        Google
+      </a>
+      <a (click)="githubButtonClicked()" class="my-1 btn btn-social btn-secondary w-100">
+        <span class="fa fa-github"></span>
+        Github
+      </a>
+    </div>
+
+  </div>
+
+</ng-template>

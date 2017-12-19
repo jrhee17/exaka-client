@@ -1,0 +1,25 @@
+
+<div *ngIf="post" class="d-flex justify-content-between mt-5">
+  <h5 style="color: #777777;">{{ post.sub_blocks.length }} Answers</h5>
+
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" (click)="sortByUpdatedAtButtonPressed()" [ngClass]="selectedSortFunction == sortByUpdatedAt ? 'active' : ''">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="sortByVoteButtonPressed()" [ngClass]="selectedSortFunction == sortByVote ? 'active' : ''">Vote</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="sortByCreatedAtButtonPressed()" [ngClass]="selectedSortFunction == sortByCreatedAt ? 'active' : ''">Oldest</a>
+    </li>
+  </ul>
+</div>
+<hr>
+
+<div *ngIf="post">
+  <div *ngFor="let subBlock of post.sub_blocks">
+    <post-sub-block [subBlock]="subBlock" [post]="post" (select)="subBlockSelected($event)"></post-sub-block>
+    <hr>
+  </div>
+</div>
+

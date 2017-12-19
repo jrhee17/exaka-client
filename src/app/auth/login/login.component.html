@@ -1,0 +1,59 @@
+<div class="container form-container">
+
+  <form #loginForm="ngForm" class="login-form" (ngSubmit)="login()">
+
+    <div>
+      <a (click)="githubButtonClicked()" class="btn btn-social btn-github">
+        <span class="fa fa-github"></span>
+        Github
+      </a>
+      <a (click)="googleButtonClicked()" class="btn btn-social btn-google">
+        <span class="fa fa-google"></span>
+        Google
+      </a>
+      <a *ngIf="isDevelopment()" (click)="exakaButtonClicked()" class="btn btn-social btn-google exaka-oauth-btn">
+        <span class="fa fa-google"></span>
+        Exaka
+      </a>
+    </div>
+
+    <hr>
+
+    <div class="form-group email-form">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" id="inputEmail" placeholder="Email" [(ngModel)]="signInData.email" #email="ngModel"
+             required name="email" pattern=".+@.+">
+      <small *ngIf="!email.valid && !email.pristine" class="text-info">
+        Email must be in format some@domain.name
+      </small>
+    </div>
+
+
+    <div class="form-group password-form">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="signInData.password"
+             required name="password" minlength="8" maxlength="20" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$"
+             #password="ngModel">
+      <small *ngIf="!password.valid && !password.pristine" class="text-info">
+        Password must be between 8 and 20 characters, and contain at least one lower case, upper case, and 1 digit
+      </small>
+    </div>
+    <div class="form-row">
+      <div>
+        <button id="login-btn" type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary">Sign in</button>
+      </div>
+    </div>
+
+    <div>
+      <ul>
+        <li class="error-message" *ngFor="let error of errors"><output class="text-danger">{{error}}</output></li>
+      </ul>
+    </div>
+
+    <div style="display: flex; justify-content: center; margin: 20px;">
+      <a class="btn btn-link" [routerLink]=" ['../forgotPassword'] ">Forgot Password?</a>
+    </div>
+
+  </form>
+
+</div>

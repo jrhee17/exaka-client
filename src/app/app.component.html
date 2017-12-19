@@ -1,0 +1,54 @@
+<ng2-slim-loading-bar></ng2-slim-loading-bar>
+<nav>
+  <div class="nav-component">
+    <a [routerLink]=" ['/'] " routerLinkActive="active" style="font-family: 'Letter Gothic Std'; font-size: 28pt; color: #56658d; margin: 0 20px;">
+      Exaka
+    </a>
+    <a class="nav-menu-anchor" [routerLink]=" ['home'] " routerLinkActive="active">
+      <span>Home</span>
+    </a>
+    <a class="nav-menu-anchor" [routerLink]=" ['profiles'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+      Users
+    </a>
+    <a class="nav-menu-anchor" [routerLink]=" ['tags'] " routerLinkActive="active">
+      Tags
+    </a>
+    <a class="nav-menu-anchor nav-profile" *ngIf="_tokenService.userSignedIn();" [routerLink]="links.profile" routerLinkActive="active">
+      Profile
+    </a>
+  </div>
+  <div class="nav-component">
+    <div *ngIf="_tokenService.userSignedIn(); then signOutBlock; else signInBlock;"></div>
+    <ng-template #signInBlock>
+      <a class="nav-menu-anchor login-btn" [routerLink]=" ['./auth/login'] " routerLinkActive="active">
+        Login
+      </a>
+      <a class="nav-menu-anchor" [routerLink]=" ['./auth/signup'] " routerLinkActive="active">
+        Sign Up
+      </a>
+    </ng-template>
+    <ng-template #signOutBlock>
+      <div *ngIf="auth">
+        <span class="auth-name">{{auth.name}}</span>
+        <span class="auth-score">{{auth.score}}</span>
+      </div>
+      <a class="nav-menu-anchor sign-out-btn" (click)="signOut()">
+        Sign Out
+      </a>
+    </ng-template>
+  </div>
+
+</nav>
+
+<main class="mt-5" style="padding: 30px;">
+  <router-outlet></router-outlet>
+</main>
+
+<footer style="background-color: #f0f0f0; border-top: 1px solid #eaeaea; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; font-family: Helvetica Neue, Helvetica, Arial; font-weight: 300;">
+  <span>You know who</span>
+  <div>
+    <a [href]="url">
+      <img class="footer-img" [src]="angularclassLogo" height="64px" width="64px">
+    </a>
+  </div>
+</footer>

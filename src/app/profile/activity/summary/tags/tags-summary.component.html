@@ -1,0 +1,13 @@
+<div class="p-3 my-1">
+  <h5 class="my-3" style="color: #777777;">Tags</h5>
+  <hr/>
+
+  <div *ngFor="let tag of tags" class="my-3">
+    <basic-tag [tag]="tag"></basic-tag>
+    <span style="color: #777777;"><small>x {{tag.count}}</small></span>
+  </div>
+
+  <div class="my-3 d-flex justify-content-end">
+    <a style="color: #777777;" [routerLink]="['../tags']">View more</a>
+  </div>
+</div>

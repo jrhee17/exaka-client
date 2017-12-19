@@ -1,0 +1,88 @@
+<div class="container">
+  <h5 style="color: #777777;">Ask Question</h5>
+
+  <hr/>
+
+  <form #postForm="ngForm">
+
+    <div class="form-group py-3">
+      <label for="post-title" style="color: #777777;">Title</label>
+
+      <input id="post-title" type="text" class="form-control" placeholder="Title" [(ngModel)]="post.title" name="title"
+          minlength="15" maxlength="150" required #title="ngModel">
+
+    </div>
+
+    <div *ngIf="title.errors && (title.dirty || title.touched)"
+         class="alert alert-danger">
+      <div [hidden]="!title.errors.required">
+        title is required
+      </div>
+      <div [hidden]="!title.errors.minlength">
+        title must be at least 15 characters long.
+      </div>
+      <div [hidden]="!title.errors.maxlength">
+        title cannot be more than 150 characters long.
+      </div>
+    </div>
+
+    <div class="row pt-3">
+      <a (click)="modal.open()">
+        <i class="fa fa-file-image-o fa-border" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="row">
+      <textarea [(ngModel)]="post.main_block.content" name="content" class="editor col-md-6"
+        minlength="30" maxlength="30000" required #content="ngModel"></textarea>
+      <div [Marked]="post.main_block.content" class="marked preview col-md-6">
+      </div>
+    </div>
+
+    <div *ngIf="content.errors && (content.dirty || content.touched)"
+         class="alert alert-danger">
+      <div [hidden]="!content.errors.required">
+        content is required
+      </div>
+      <div [hidden]="!content.errors.minlength">
+        content must be at least 30 characters long.
+      </div>
+      <div [hidden]="!content.errors.maxlength">
+        content cannot be more than 30000 characters long.
+      </div>
+    </div>
+
+    <div class="form-group py-3">
+      <span style="color: #777777">Tags</span>
+      <tag-input id="post-tags" [(ngModel)]='post.tags' name="tags" minlength="3" maxlength="10" required
+                 #tags="ngModel" [identifyBy]="'_id'" [displayBy]="'name'">
+        <tag-input-dropdown [autocompleteObservable]='requestAutocompleteItems' [identifyBy]="'_id'" [displayBy]="'name'"></tag-input-dropdown>
+      </tag-input>
+    </div>
+
+    <div *ngIf="tags.errors && (tags.dirty || tags.touched)"
+         class="alert alert-danger">
+      <div [hidden]="!tags.errors.required">
+        tags is required
+      </div>
+      <div [hidden]="!tags.errors.minlength">
+        There must be at least 3 tags
+      </div>
+      <div [hidden]="!tags.errors.maxlength">
+        There cannot be more than 10 tags
+      </div>
+    </div>
+
+    <button class="py-1 px-3 submit-button rounded" [disabled]="!postForm.valid" (click)="addPostButtonClicked()">Post Your Question</button>
+
+  </form>
+
+  <div *ngIf="modelError">
+    <ngb-alert [dismissible]="false" *ngFor="let errorMessage of modelError.getErrors()">
+      {{ errorMessage }}
+    </ngb-alert>
+  </div>
+</div>
+
+<image-upload-modal #modal (uploadComplete)="selectUploadedImage($event)"></image-upload-modal>
+
+

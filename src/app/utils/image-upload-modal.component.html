@@ -1,0 +1,25 @@
+<ng-template #modalView let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div ng2FileDrop
+         [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         (onFileDrop)="fileDrop($event)"
+         [uploader]="uploader"
+         class="well my-drop-zone" style="height: 150px; display: flex; justify-content: center; align-items: center;">
+      Drag your image here
+    </div>
+    <div *ngIf="imageUrl" style="display: flex; justify-content: center;">
+      <img [src]="imageUrl" width="100" height="100">
+    </div>
+  </div>
+  <div class="modal-footer" style="display: flex; justify-content: space-between;">
+    <button [disabled]="uploader.queue.length == 0" type="button" class="btn btn-primary" (click)="submit()">Submit</button>
+    <button type="button" class="btn btn-secondary" (click)="c()">Close</button>
+  </div>
+</ng-template>

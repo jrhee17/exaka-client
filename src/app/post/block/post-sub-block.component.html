@@ -1,0 +1,66 @@
+<style>
+  a { cursor: pointer; color: #0275d8;}
+</style>
+
+<div [attr.id]="subBlock._id" class="row sub-block" *ngIf="subBlock">
+  <div class="col-md-1 d-flex flex-column justify-content-start align-items-center">
+    <auth-modal (action)="upvote()">
+      <alert-popover [placement]="'top'" #upvoteAlert>
+        <i class="fa fa-angle-up fa-3x upvote-btn" aria-hidden="true" [ngClass]="isUpVoted() ? 'vote_arrow' : 'novote_arrow'"></i>
+      </alert-popover>
+    </auth-modal>
+    <div class="vote-num" style="font-size: 20px;">{{ vote() }}</div>
+    <auth-modal (action)="downvote()">
+      <alert-popover [placement]="'bottom'" #downvoteAlert>
+        <i class="downvote-btn fa fa-angle-down fa-3x" aria-hidden="true" [ngClass]="isDownVoted() ? 'vote_arrow' : 'novote_arrow'"></i>
+      </alert-popover>
+    </auth-modal>
+    <auth-modal [disabled]="!post.isOwner(auth)" (action)="selectButtonPressed()">
+      <i class="fa fa-check fa-2x select-btn" aria-hidden="true" [ngClass]="isSelected() ? 'selected_check' : 'noselected_check'"></i>
+    </auth-modal>
+  </div>
+
+  <div class="col-md-11 py-3">
+    <div *ngIf="!subBlock.closed" style="word-break:break-all;">
+      <p class="marked" [Marked]="subBlock.content"></p>
+    </div>
+    <div *ngIf="subBlock.closed">
+      <div *ngIf="!auth || subBlock.owner._id != auth._id" class="p-5" style="word-break:break-all; text-align: center;">
+        Content has been deleted by user
+      </div>
+      <div *ngIf="auth && subBlock.owner._id == auth._id">
+        <div style="word-break:break-all; text-align: center; background-color: lightgrey;">
+          This post has been deleted
+        </div>
+        <div class="p-5" style="background-color: #EFEFEF">
+          <p class="marked" [Marked]="subBlock.content"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-3 d-flex justify-content-between">
+      <div *ngIf="subBlock">
+        <button type="button" class="btn btn-link" [disabled]="subBlock.closed" *ngIf="subBlock.isOwner(auth)" [routerLink]=" ['../answer', subBlock._id, 'edit'] ">edit</button>
+        <block-flag [disabled]="!auth || subBlock.closed" [blockId]="subBlock._id"></block-flag>
+        <button type="button" class="btn btn-link" *ngIf="subBlock.isOwner(auth)" (click)="close()">close</button>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <div *ngIf="!subBlock.closed && subBlock.content_histories.length > 1">
+          <a (click)="contentHistoryButtonClicked()"><small>last edited at <i>{{ subBlock.content_histories[subBlock.content_histories.length - 1].getCreatedAt() }}</i></small></a>
+        </div>
+        <basic-user-badge [block]="subBlock"></basic-user-badge>
+      </div>
+    </div>
+
+    <button type="button" class="exaka-basic-button" [class.active]="toggleCommentAdd" (click)="commentButtonClicked()">Add a comment</button>
+    <div class="p-3">
+      <comment-add *ngIf="toggleCommentAdd" [blockId]="subBlock._id" [postId]="post._id" (complete)="commentButtonClicked()"></comment-add>
+    </div>
+
+    <hr *ngIf="subBlock.comments.length > 0">
+
+    <block-comment *ngFor="let comment of subBlock.comments" [comment]="comment"></block-comment>
+  </div>
+
+</div>

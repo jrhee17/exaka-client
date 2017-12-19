@@ -1,0 +1,11 @@
+<div class="container">
+  <button type="button" class="btn btn-secondary" (click)="backButtonPressed()">Go Back</button>
+
+  <div *ngFor="let idx of contentHistoryIndices">
+
+    <content-history *ngIf="idx < contentHistoryIndices.length - 1" [currContentHistory]="contentHistories[idx]"
+                     [prevContentHistory]="contentHistories[idx + 1]" [toggled]="idx == 0"></content-history>
+    <content-history *ngIf="idx == contentHistoryIndices.length - 1" [currContentHistory]="contentHistories[idx]"></content-history>
+
+  </div>
+</div>

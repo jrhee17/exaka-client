@@ -1,0 +1,40 @@
+
+<div class="container">
+  <h5 style="color: #777777;">Users</h5>
+  <ngb-tabset (tabChange)="tabChange($event)" justify="end">
+    <ngb-tab id="tab-week" title="Week"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-month" title="Month"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-quarter" title="Quarter"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-year" title="Year"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-all" title="All"><ng-template ngbTabContent></ng-template></ngb-tab>
+  </ngb-tabset>
+
+
+  <div class="my-3">
+    <span style="color: #999999; font-size: 11pt;">Search users:</span> <input class="rounded" style="box-shadow: none; border: 1px solid #aaaaaa; height: 25px;" type="text" [formControl]="searchTerm">
+  </div>
+
+  <div class="row">
+    <div *ngFor="let user of users" class="my-3 col-lg-3 col-md-4 col-sm-6">
+      <div class="d-flex justify-content-start flex-row">
+        <div>
+          <a class="text-primary" [routerLink]="['/profiles', user._id, 'main']">
+            <img [src]="user.getImage()" class="rounded" width="44" height="44"/>
+          </a>
+        </div>
+        <div class="d-flex flex-column justify-content-start ml-3">
+          <a style="color: #56658d; font-size: 11pt;" [routerLink]="['/profiles', user._id, 'main']"><span>{{user.name}}</span></a>
+          <small><b>{{ user.weekly_score }}</b></small>
+          <div>
+            <span *ngFor="let tag of user.getTopTags()" class="mr-1" style="color: #848d95;"><small>{{ tag.name }}</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-5">
+    <ngb-pagination (pageChange)="pageChangeEvent($event)" [collectionSize]="count" [(page)]="page"
+                    [pageSize]="per_page" aria-label="Default pagination"></ngb-pagination>
+  </div>
+</div>

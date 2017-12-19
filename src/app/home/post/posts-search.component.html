@@ -1,0 +1,52 @@
+
+
+
+<div class="container">
+  <div class="post-list-header">
+    <h5 style="color: #777777">Top Posts</h5>
+    <button type="button" class="add-post-btn exaka-basic-button" routerLink="/question/ask">Upload post</button>
+  </div>
+  <div *ngFor="let post of posts">
+    <div class="post-container">
+      <div class="post-sub-info">
+        <div class="post-sub-info-block">
+          <span class="exaka-large-text">{{ post.main_block.vote | formatNum }}</span>
+          <span class="exaka-small-text">Votes</span>
+        </div>
+        <div class="post-sub-info-block">
+          <span class="exaka-large-text">{{ post.views | formatNum }}</span>
+          <span class="exaka-small-text">Views</span>
+        </div>
+      </div>
+      <div class="post-main-info">
+        <div>
+          <a class="post-main-link" [routerLink]=" ['/post', post._id] ">
+            <span class="exaka-main-title">{{post.title}}</span>
+          </a>
+        </div>
+        <div class="post-main-additional-info">
+          <div class="post-main-additional-tags-info">
+            <basic-tag [tag]="tag" *ngFor="let tag of post.tags"></basic-tag>
+          </div>
+          <div class="owner-container">
+            <div class="time-container">
+              <span>{{ post.updated_at | timeSince }}</span>
+            </div>
+            <div class="mr-1">
+              <a [routerLink]="['/profiles', post.owner._id]">
+                <span class="user-text">{{ post.owner.name }}</span>
+              </a>
+            </div>
+            <div>
+              <span class="user-score">{{ post.owner.score | formatNum }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="main-pagination" class="container pagination-container">
+  <ngb-pagination [collectionSize]="count" [(page)]="pageNum" [pageSize]="pageSize" (pageChange)="pageChange()"></ngb-pagination>
+</div>
+

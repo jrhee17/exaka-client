@@ -1,0 +1,171 @@
+/* this file will be extracted to main dist folder and is imported in index.html */
+/* This file is for setting global styles  */
+@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import 'variables';
+$fa-font-path: "../../static/font-awesome-4.7.0/fonts";
+@import "../../static/font-awesome-4.7.0/scss/font-awesome";
+@import "../../node_modules/bootstrap-social/bootstrap-social.css";
+
+a {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+.vote_arrow {
+  color: $vote_color;
+}
+
+.novote_arrow {
+  color: $novote_color;
+}
+
+.favorite_star {
+  color: $favorite_color;
+}
+
+.nofavorite_star {
+  color: $nofavorite_color;
+}
+
+.selected_check {
+  color: $selected_color;
+}
+
+.noselected_check {
+  color: $noselected_color;
+}
+
+.selected_background {
+  background-color: $selected_color;
+  color: white;
+}
+
+.noselected_background {
+  background-color: $noselected_color;
+}
+
+
+body /deep/ .marked img {
+  max-width: 100%;
+}
+
+.positive_score {
+  color: $positive_score_color
+}
+
+.negative_score {
+  color: $negative_score_color;
+}
+
+.page-item.active .page-link {
+  color: #777;
+  background-color: #eee;
+  border: 1px solid #aaa;
+}
+
+.page-item .page-link {
+  color: #999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+.btn-link {
+  color: #777777;
+  font-size: 0.9em;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: #777;
+  border-top: 2px solid #aaa;
+}
+
+.nav-tabs .nav-link {
+  color: #999;
+}
+
+.nav-pills .nav-link {
+  color: #999999;
+  font-size: 10pt;
+}
+
+.nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active {
+  color: #555555;
+  background: none;
+  border-bottom: 1px solid #bdc6db;
+  font-size: 10pt;
+}
+
+.sub-selected {
+  color: #ffffff;
+  background-color: #7c8cb5;
+  font-size: 12pt;
+  padding: 0 7px;
+}
+
+.sub-non-selected {
+  color: #7c8cb5;
+  background-color: #ffffff;
+  font-size: 12pt;
+  padding: 0 7px;
+}
+
+.exaka-basic-button {
+  height: 30px;
+  background-color: #ffffff;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: 4px;
+  color: rgb(170, 170, 170);
+  font-weight: 200;
+  padding: 0 15px;
+  flex-shrink: 0;
+}
+
+.exaka-basic-button.active {
+  font-weight: 400;
+  color: rgb(150, 150, 150);
+  border:1px solid rgb(150, 150, 150);
+}
+
+.exaka-basic-button:hover {
+  font-weight: 400;
+  color: rgb(150, 150, 150);
+  background-color: rgb(238, 238, 238);
+  border:1px solid rgb(150, 150, 150);
+}
+
+.exaka-basic-button:disabled {
+  font-weight: 400;
+  color: #cccccc;
+  background-color: #ffffff;
+  border:1px solid #cccccc;
+  cursor: not-allowed;
+}
+
+.preview {
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid #dddddd;
+  background-color: #fafafa;
+  padding: 20px;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-indicator {
+  background-color: #56658d;
+  background-image: none;
+}
+
+.font-weight-5 {
+  font-weight: 500;
+}
+.font-weight-6 {
+  font-weight: 600;
+}
+
+.main-font {
+  color: $main-font-color;
+}
+.sub-font {
+  color: $sub-font-color;
+}

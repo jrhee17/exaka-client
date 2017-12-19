@@ -1,0 +1,9 @@
+<div *ngIf="isDataAvailable">
+  <div style="display: block;">
+    <canvas baseChart width="200" height="200"
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            chartType="line">
+    </canvas>
+  </div>
+</div>

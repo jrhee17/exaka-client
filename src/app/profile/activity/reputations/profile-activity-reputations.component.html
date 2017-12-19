@@ -1,0 +1,26 @@
+<ngb-tabset (tabChange)="tabChange($event)" justify="end">
+  <ngb-tab id="tab-all" title="List">
+    <ng-template ngbTabContent>
+      <div *ngFor="let eventGroup of eventGroups">
+        <reputation-block [date]="eventGroup.created_at" [score]="eventGroup.score" [profile_id]="profile._id"></reputation-block>
+      </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab id="tab-comments" title="Graph">
+    <ng-template ngbTabContent>
+      <div style="height: 400px;">
+        <div *ngIf="initialized" >
+          <reputation-chart [eventGroups]="eventGroups"></reputation-chart>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+
+<div class="d-flex justify-content-center">
+  <ngb-pagination (pageChange)="pageChangeEvent($event)" [collectionSize]="count" [(page)]="page"
+                  [pageSize]="per_page" aria-label="Default pagination"></ngb-pagination>
+</div>
+
+
+

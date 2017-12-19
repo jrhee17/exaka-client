@@ -1,0 +1,31 @@
+<div style="position: relative;">
+  <img [src]="selectedImage" class="rounded" width="150" height="150">
+  <a [ngbPopover]="popContent" #imageSelectPopOver="ngbPopover" placement="bottom" class="change-picture-link"><small>Change Picture</small></a>
+</div>
+
+<ng-template #popContent>
+  <div class="container">
+    <div style="display: flex; justify-content: space-between;">
+      <span>Change your Picture</span>
+      <button type="button" (click)="imageSelectPopOver.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <hr>
+    <div>
+      <img [src]="identiconImage" class="rounded" width="50" height="50">
+      <span><b>Identicon</b></span>
+      <button type="button" (click)="selectIdenticon()">Choose</button>
+    </div>
+    <hr>
+    <div *ngIf="profileImage">
+      <img [src]="profileImage" class="rounded" width="50" height="50">
+      <span><b>Uploaded Image</b></span>
+      <button type="button" (click)="selectProfile()">Choose</button>
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary" (click)="closePopup(); modal.open();">Upload Image</button>
+
+</ng-template>
+
+<image-upload-modal #modal [imageUrl]="selectedImage" (uploadComplete)="selectUploadedImage($event)"></image-upload-modal>

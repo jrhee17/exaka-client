@@ -1,0 +1,39 @@
+
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="post-title" style="color: #777777;">{{post?.title}}</h3>
+    <!--<button type="button" class="ml-5 py-1 px-3 rounded" style="color: #999; border: 1px solid #999; background-color: #fff;-->
+      <!--flex-shrink: 0;" routerLink="/question/ask">Ask Question</button>-->
+    <button type="button" class="ml-5 exaka-basic-button" routerLink="/question/ask">Ask Question</button>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="post-body col-md-10">
+
+      <post-main-block *ngIf="post" [mainBlock]="post.main_block" [postId]="post._id" [tags]="post.tags"></post-main-block>
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]=" ['./answers'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+            View answers
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]=" ['./answer/new'] " routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+            Post your answer
+          </a>
+        </li>
+      </ul>
+
+      <router-outlet></router-outlet>
+    </div>
+
+
+    <div class="col-md-2">
+
+    </div>
+  </div>
+</div>
+

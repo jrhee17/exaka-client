@@ -1,0 +1,88 @@
+<div class="container form-container">
+
+  <form [formGroup]="registrationForm" class="signup-form" (ngSubmit)="signup()">
+
+    <div>
+      <a (click)="githubButtonClicked()" class="btn btn-social btn-github">
+        <span class="fa fa-github"></span>
+        Github
+      </a>
+      <a (click)="googleButtonClicked()" class="btn btn-social btn-google">
+        <span class="fa fa-google"></span>
+        Google
+      </a>
+      <a *ngIf="isDevelopment()" (click)="exakaButtonClicked()" class="btn btn-social btn-google exaka-oauth-btn">
+        <span class="fa fa-google"></span>
+        Exaka
+      </a>
+    </div>
+
+    <hr>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input name="email" formControlName="email" type="email" class="form-control" id="email" placeholder="Email"
+             [(ngModel)]="registerData.email" required>
+      <div>
+        <small *ngIf="registrationForm.controls.email.hasError('required') && registrationForm.controls.email.dirty" class="text-info">
+          Email must not be empty
+        </small>
+      </div>
+      <div>
+        <small *ngIf="registrationForm.controls.email.hasError('pattern') && registrationForm.controls.email.dirty" class="text-info">
+          Email must be in format some@domain.name
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group password-form">
+      <label for="password">Password</label>
+      <input name="password" formControlName="password" type="password" class="form-control" id="password"
+             placeholder="Password" [(ngModel)]="registerData.password" required>
+      <div>
+        <small *ngIf="registrationForm.controls.password.hasError('required') && registrationForm.controls.password.dirty" class="text-info">
+          Password must not be empty
+        </small>
+      </div>
+      <div>
+        <small *ngIf="registrationForm.controls.password.hasError('minlength') && registrationForm.controls.password.dirty" class="text-info">
+          Password must be at least 8 characters
+        </small>
+      </div>
+      <div>
+        <small *ngIf="registrationForm.controls.password.hasError('maxlength') && registrationForm.controls.password.dirty" class="text-info">
+          Password must be under 20 characters
+        </small>
+      </div>
+      <div>
+        <small *ngIf="registrationForm.controls.password.hasError('pattern') && registrationForm.controls.password.dirty" class="text-info">
+          Password must contain at least one lower case, upper case, and 1 digit
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group confirm-form">
+      <label for="passwordConfirmation">Confirm</label>
+      <input name="passwordConfirmation" formControlName="passwordConfirmation" type="password" class="form-control"
+             id="passwordConfirmation" placeholder="Confirm" [(ngModel)]="registerData.passwordConfirmation" required>
+      <small *ngIf="registrationForm.controls.passwordConfirmation.hasError('required') && registrationForm.controls.passwordConfirmation.dirty" class="text-info">
+        Password confirmation must not be empty
+      </small>
+      <small *ngIf="registrationForm.controls.passwordConfirmation.hasError('notEquivalent') && registrationForm.controls.passwordConfirmation.dirty" class="text-info">
+        Password doesn't match
+      </small>
+    </div>
+    <div class="form-group">
+      <div>
+        <button id="signup-btn" type="submit" [disabled]="!registrationForm.valid" class="btn btn-primary">Sign up</button>
+      </div>
+    </div>
+
+    <div>
+      <ul>
+        <li class="error-message" *ngFor="let error of errors"><output class="text-danger">{{error}}</output></li>
+      </ul>
+    </div>
+  </form>
+
+</div>

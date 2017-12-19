@@ -1,0 +1,28 @@
+<ngb-tabset (tabChange)="tabChange($event)" justify="end">
+  <ngb-tab id="tab-all" title="All"><ng-template ngbTabContent></ng-template></ngb-tab>
+  <ngb-tab id="tab-comments" title="Comments"><ng-template ngbTabContent></ng-template></ngb-tab>
+  <ngb-tab id="tab-answers" title="Answers"><ng-template ngbTabContent></ng-template></ngb-tab>
+</ngb-tabset>
+
+<div *ngFor="let event of events" style="border-top: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf;"
+     class="d-flex align-items-center justify-content-start p-1">
+
+  <div class="d-inline-block mr-3 p-2" style="color: #bbb">
+    <div class="d-flex flex-column align-items-center">
+      <div>{{event.created_at.getMonth() + 1}}</div>
+      <div>{{event.created_at.getDate()}}</div>
+    </div>
+  </div>
+  <div class="mr-3">
+    {{ event.type }} - {{ event.action }}
+  </div>
+  <div>
+    <a [routerLink]="['/post', event.post_id, 'answers']">{{event.post_title}}</a>
+  </div>
+
+</div>
+
+<div class="d-flex justify-content-center">
+  <ngb-pagination (pageChange)="pageChangeEvent($event)" [collectionSize]="count" [(page)]="page"
+                  [pageSize]="per_page" aria-label="Default pagination"></ngb-pagination>
+</div>

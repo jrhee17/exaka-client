@@ -1,0 +1,23 @@
+<div class="my-3">
+  <ngb-tabset (tabChange)="tabChange($event)" justify="end" type="pills">
+    <ngb-tab id="tab-votes" title="Votes"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-activity" title="Activity"><ng-template ngbTabContent></ng-template></ngb-tab>
+    <ngb-tab id="tab-newest" title="Newest"><ng-template ngbTabContent></ng-template></ngb-tab>
+  </ngb-tabset>
+</div>
+
+<hr/>
+<div *ngFor="let subBlock of subBlocks" class="p-3 d-flex align-items-center" style="border-bottom: 1px solid #d3d3d3; flex: 1 0 auto;">
+  <div class="mr-3 px-3 py-1" [ngClass]="subBlock.selecting_post_id ? 'selected' : 'not-selected'">
+    <span>{{ subBlock.vote }}</span>
+  </div>
+  <div class="d-flex justify-content-between align-items-center" style="flex: 1 1 auto; width: 100px;">
+    <a style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #777777; flex: 1 1 100px;"
+       [routerLink]="['/post', subBlock.embedded_post._id, 'answers']">{{ subBlock.embedded_post.title }}</a>
+    <span class="ml-2" style="font-size: 9pt; color: #999999;">{{ subBlock.created_at | timeSince }}</span>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <ngb-pagination (pageChange)="pageChangeEvent($event)" [collectionSize]="count" [(page)]="page"
+                  [pageSize]="per_page" aria-label="Default pagination" [maxSize]="10"></ngb-pagination>
+</div>
