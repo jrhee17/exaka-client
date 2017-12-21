@@ -30,7 +30,10 @@
   "exclude": [
     "node_modules",
     "dist",
-    "typings"
+    "typings",
+    "**/*.e2e.ts",
+    "**/*.e2e.login.ts",
+    "**/*.e2e.logout.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

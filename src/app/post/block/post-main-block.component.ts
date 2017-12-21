@@ -115,7 +115,7 @@ export class PostMainBlockComponent {
   private isFavorite(): boolean {
     if(this.mainBlock)
       return this.mainBlock.favorited;
-    return 0;
+    return false;
   }
 
   private vote(): number {

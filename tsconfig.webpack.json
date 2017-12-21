@@ -28,7 +28,9 @@
     "typings",
     "dist",
     "src/**/*.spec.ts",
-    "src/**/*.e2e.ts"
+    "src/**/*.e2e.ts",
+    "**/*.e2e.login.ts",
+    "**/*.e2e.logout.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
