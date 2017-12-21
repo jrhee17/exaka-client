@@ -2,8 +2,7 @@
 /* This file is for setting global styles  */
 @import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import 'variables';
-$fa-font-path: "../../static/font-awesome-4.7.0/fonts";
-@import "../../static/font-awesome-4.7.0/scss/font-awesome";
+@import '../../node_modules/font-awesome/scss/font-awesome';
 @import "../../node_modules/bootstrap-social/bootstrap-social.css";
 
 a {
