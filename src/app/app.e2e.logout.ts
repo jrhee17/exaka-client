@@ -23,43 +23,53 @@ describe('App', () => {
 
   });
 
-  it(`test navigates to profiles successfully`, () => {
-    element.all(by.css('.nav-menu-anchor')).get(1).click();
+  it(`test navigates to profiles successfully`, async(done) => {
+    await element.all(by.css('.nav-menu-anchor')).get(1).click();
 
-    testing_utils.relPathLoaded('profiles');
+    await testing_utils.relPathLoaded('profiles');
     expect(browser.getCurrentUrl()).toMatch(/.*profiles.*/);
+
+    done();
   });
 
-  it(`test navigates to tags successfully`, () => {
-    element.all(by.css('.nav-menu-anchor')).get(2).click();
+  it(`test navigates to tags successfully`, async(done) => {
+    await element.all(by.css('.nav-menu-anchor')).get(2).click();
 
-    testing_utils.relPathLoaded('tags');
+    await testing_utils.relPathLoaded('tags');
     expect(browser.getCurrentUrl()).toMatch(/.*tags.*/);
+
+    done();
   });
 
-  it(`test navigates to login successfully`, () => {
-    element.all(by.css('.nav-menu-anchor')).get(3).click();
+  it(`test navigates to login successfully`, async(done) => {
+    await element.all(by.css('.nav-menu-anchor')).get(3).click();
 
-    testing_utils.relPathLoaded('auth/login');
+    await testing_utils.relPathLoaded('auth/login');
     expect(browser.getCurrentUrl()).toMatch(/.*auth\/login.*/);
+
+    done();
   });
 
-  it(`test navigates to signup successfully`, () => {
-    element.all(by.css('.nav-menu-anchor')).get(4).click();
+  it(`test navigates to signup successfully`, async(done) => {
+    await element.all(by.css('.nav-menu-anchor')).get(4).click();
 
-    testing_utils.relPathLoaded('auth/signup');
+    await testing_utils.relPathLoaded('auth/signup');
     expect(browser.getCurrentUrl()).toMatch(/.*auth\/signup.*/);
+
+    done();
   });
 
-  it(`navigates to login page when adding post`, () => {
-    browser.get('/');
-    element.all(by.css('.add-post-btn')).first().click();
+  it(`navigates to login page when adding post`, async(done) => {
+    await browser.get('/');
+    await element.all(by.css('.add-post-btn')).first().click();
     expect(browser.getCurrentUrl()).toMatch(/auth\/login/);
+    done();
   });
 
-  it(`Check nav logo is correctly loaded`, () => {
-    let footerImg = element.all(by.css('.footer-img')).first();
+  it(`Check nav logo is correctly loaded`, async(done) => {
+    let footerImg = await element.all(by.css('.footer-img')).first();
     expect(testing_utils.imgLoaded(footerImg)).toBeTruthy();
+    done();
   });
 
 });
