@@ -4,6 +4,7 @@
 import {browser, element, by, ElementFinder} from "protractor";
 import {test} from "shelljs";
 import {WebElement} from "selenium-webdriver";
+var request = require('request');
 
 export class testing_utils {
 
@@ -14,6 +15,18 @@ export class testing_utils {
         return rel_url === url;
       });
     }
+  }
+
+  public static deleteRequest(url) {
+    return new Promise(function (resolve, reject) {
+      request(url, {method: 'DELETE'},(error, res, body) => {
+        if (!error && res.statusCode == 200) {
+          resolve(body);
+        } else {
+          reject(error);
+        }
+      });
+    });
   }
 
   public static matchesPathLoaded(regex: RegExp) {
@@ -49,6 +62,8 @@ export class testing_utils {
   public static logout() {
 
   }
+
+
 
   public static cssClassLoaded(elementFinder, lookup: string) {
     return () => {

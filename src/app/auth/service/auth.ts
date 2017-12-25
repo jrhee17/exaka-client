@@ -19,7 +19,7 @@ export class Auth {
   public reported_block_ids: string[] = [];
   public favorite_block_ids: string[] = [];
   public score: number;
-
+  public provider: string;
 
   constructor (obj: any = null) {
     if(obj) {
@@ -38,6 +38,7 @@ export class Auth {
       this.reported_block_ids = obj.reported_block_ids;
       this.favorite_block_ids = obj.favorite_block_ids;
       this.score = obj.score;
+      this.provider = obj.provider;
 
       console.log('auth score: ' + this.score);
     }

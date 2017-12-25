@@ -10,18 +10,6 @@ import {getEmail, cleanInbox} from "../../testing/mailtrap";
 
 var request = require('request');
 
-function deleteRequest(url) {
-  return new Promise(function (resolve, reject) {
-    request(url, {method: 'DELETE'},(error, res, body) => {
-      if (!error && res.statusCode == 200) {
-        resolve(body);
-      } else {
-        reject(error);
-      }
-    });
-  });
-}
-
 describe(`Sign up and delete account test`, () => {
 
   beforeEach(async(done) => {
@@ -248,7 +236,7 @@ describe(`Multi signup test`, () => {
     }
 
     // Remove all instances of email
-    await deleteRequest(`http://exakadev.com:3001/api/users?email=${email}`);
+    await testing_utils.deleteRequest(`http://exakadev.com:3001/api/users?email=${email}`);
 
     await browser.get(`#/auth/signup`);
     await browser.wait(testing_utils.matchesPathLoaded(/\/#\/auth\/signup/));
@@ -265,7 +253,7 @@ describe(`Multi signup test`, () => {
     }
 
     // Remove all instances of email
-    await deleteRequest(`http://exakadev.com:3001/api/users?email=${email}`);
+    await testing_utils.deleteRequest(`http://exakadev.com:3001/api/users?email=${email}`);
     await browser.get(`exakadev.com:4000/users/sign_out`);
 
     done();

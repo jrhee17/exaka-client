@@ -24,6 +24,10 @@ export class ProfileEditComponent {
     _store.select('auth').subscribe((res) => this.tempUserData = new Auth(res));
   }
 
+  private canResetPassword(): boolean {
+    return this.tempUserData.provider === 'email';
+  }
+
   submit($event): void {
     $event.preventDefault();
     this.modelError = null;

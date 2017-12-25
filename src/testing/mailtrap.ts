@@ -50,18 +50,6 @@ function patchRequest(url) {
   });
 }
 
-function deleteRequest(url) {
-  return new Promise(function (resolve, reject) {
-    request(url, {method: 'DELETE'},(error, res, body) => {
-      if (!error && res.statusCode == 200) {
-        resolve(body);
-      } else {
-        reject(error);
-      }
-    });
-  });
-}
-
 async function cleanInbox() {
   return await patchRequest(`https://mailtrap.io/api/v1/inboxes/283729/clean`);
 }
