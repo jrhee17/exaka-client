@@ -20,6 +20,8 @@ export class testing_utils {
     return () => {
       return browser.getCurrentUrl().then(function(actualUrl) {
         return regex.test(actualUrl);
+      }).catch((err) => {
+        console.log(`helper.util.ts matchesPathLoaded regex: ${regex}, err: ${err}`);
       });
     }
   }

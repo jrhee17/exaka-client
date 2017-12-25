@@ -63,7 +63,7 @@ describe(`Sign up and delete account test`, () => {
     await browser.wait(testing_utils.matchesPathLoaded(/\#\/auth\/emailConfirm/), 20 * 1000);
 
     await element(by.css('.nav-home-btn')).click();
-    await browser.wait(testing_utils.matchesPathLoaded(/\#\/$/))
+    await browser.wait(testing_utils.matchesPathLoaded(/\#\/$/));
 
     let dom = await getEmail(email);
 
@@ -383,7 +383,7 @@ describe(`Multi signup test`, () => {
     await browser.wait(testing_utils.matchesPathLoaded(/\#\/auth\/emailConfirm/), 20 * 1000);
 
     await element(by.css('.nav-home-btn')).click();
-    await browser.wait(testing_utils.matchesPathLoaded(/\#\/$/))
+    await browser.wait(testing_utils.matchesPathLoaded(/\#\/$/));
 
     const dom = await getEmail(email);
 
