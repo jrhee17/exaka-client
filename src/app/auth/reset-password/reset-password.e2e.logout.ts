@@ -59,7 +59,7 @@ describe(`reset password`, () => {
     await browser.wait(testing_utils.matchesPathLoaded(/#\/$/));
     expect(element.all(by.css('.sign-out-btn')).isPresent()).toBeTruthy();
 
-    // Navigate to reset password page
+    // Change password
     await browser.wait(element(by.css('.nav-profile')).isPresent());
     await element(by.css('.nav-profile')).click();
 
@@ -77,6 +77,39 @@ describe(`reset password`, () => {
     await element(by.id('passwordConfirmation')).sendKeys('fdsaFDSA321');
 
     await element(by.id('profilePasswordBtn')).click();
+
+    await browser.get(`#`);
+    await browser.wait(testing_utils.matchesPathLoaded(/#\/$/), 10000);
+
+    // Logout
+    await element.all(by.css('.sign-out-btn')).click();
+
+    // Login using new credentials
+    await browser.get(`#/auth/login`);
+    await browser.wait(testing_utils.matchesPathLoaded(/\/#\/auth\/login/));
+
+    await element(by.id('inputEmail')).sendKeys(email);
+    await element(by.id('inputPassword')).sendKeys('fdsaFDSA321');
+    await element(by.id('login-btn')).click();
+
+    // Check login successful
+    await browser.wait(testing_utils.matchesPathLoaded(/#\/$/));
+    expect(element.all(by.css('.sign-out-btn')).isPresent()).toBeTruthy();
+
+    // Delete user
+    await element.all(by.css('.nav-menu-anchor')).get(3).click();
+    await browser.wait(testing_utils.matchesPathLoaded(/profiles\/\w+\/main/));
+
+    // Click on edit
+    await element.all(by.css('.edit-profile-btn')).click();
+    await browser.wait(testing_utils.matchesPathLoaded(/profiles\/\w+\/edit/));
+
+    // Click on delete
+    await element.all(by.css('.profile-edit-delete-btn')).click();
+    await browser.wait(testing_utils.matchesPathLoaded(/profiles\/\w+\/delete/));
+
+    await element.all(by.css('.profile-delete-btn')).click();
+    await browser.wait(testing_utils.matchesPathLoaded(/#\/$/));
 
 
     done();
