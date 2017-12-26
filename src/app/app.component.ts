@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   };
 
   public tokenServiceParams = {
-    apiBase: `http://${window.location.hostname}:3001`,
+    apiBase: `${API_URL}:3001`,
     apiPath: 'api',
     signInStoredUrlStorageKey: 'signInStoredUrlStorageKey',
     signInRedirect: 'auth/login',
