@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   };
 
   public tokenServiceParams = {
-    apiBase: `${API_URL}:3001`,
+    apiBase: `${API_URL}`,
     apiPath: 'api',
     signInStoredUrlStorageKey: 'signInStoredUrlStorageKey',
     signInRedirect: 'auth/login',
@@ -59,6 +59,7 @@ export class AppComponent implements OnInit {
   constructor(public _tokenService: Angular2TokenService, public _store: Store<Auth>, public _router: Router) {}
 
   public ngOnInit(): void {
+
     this._tokenService.init(this.tokenServiceParams);
 
     const store = this._store.select<Auth>('auth');
