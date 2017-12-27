@@ -24,7 +24,7 @@ const OptimizeJsPlugin = require('optimize-js-plugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
-const API_URL = process.env.API_URL || 'http://exaka.com:3001';
+const API_URL = process.env.API_URL || 'http://api.exaka.com:3001';
 const METADATA = webpackMerge(commonConfig({
   env: ENV
 }).metadata, {
