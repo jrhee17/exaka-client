@@ -358,8 +358,10 @@ module.exports = function (options) {
 
       new ngcWebpack.NgcWebpackPlugin({
         disabled: !AOT,
-        tsConfig: helpers.root('tsconfig.webpack.json'),
-        resourceOverride: helpers.root('config/resource-override.js')
+//        tsConfig: helpers.root('tsconfig.webpack.json'),
+//        resourceOverride: helpers.root('config/resource-override.js')
+	tsConfigPath: helpers.root('tsconfig.webpack.json'),
+	mainPath: helpers.root('src/main.browser.ts')
       }),
 
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ko/),
