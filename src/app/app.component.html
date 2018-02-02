@@ -13,7 +13,7 @@
     <a class="nav-menu-anchor" [routerLink]=" ['tags'] " routerLinkActive="active">
       Tags
     </a>
-    <a class="nav-menu-anchor nav-profile" *ngIf="_tokenService.userSignedIn();" [routerLink]="links.profile" routerLinkActive="active">
+    <a class="nav-menu-anchor nav-profile" *ngIf="_tokenService.userSignedIn() && auth" [routerLink]="links.profile" routerLinkActive="active">
       Profile
     </a>
   </div>

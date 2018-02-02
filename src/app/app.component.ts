@@ -82,6 +82,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  private isAuthLoaded(): boolean {
+    return this.auth == null || this.auth == 'undefined';
+  }
+
   public signOut(): void {
     this._tokenService.signOut().subscribe(
       (res) => {

@@ -57,7 +57,6 @@ export class ProfileEditComponent {
   }
 
   selectUploadedImage($event): void {
-    debugger;
     this.imageUpdated($event);
     this.imageSelected({url: $event.data.image_file.url});
   }
