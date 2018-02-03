@@ -5,7 +5,7 @@ import {Component, Input, OnInit, OnDestroy} from "@angular/core";
 import {Angular2TokenService} from "angular2-token";
 import {Tag} from "../../../models/tag";
 import {User} from "../../../models/user";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 @Component({
   selector: 'profile-main-tags',
   templateUrl: './profile-main-tags.component.html',
@@ -25,7 +25,7 @@ export class ProfileMainTagsComponent implements OnInit, OnDestroy {
   constructor(private _tokenService: Angular2TokenService, private _store: Store<User>) {}
 
   public ngOnInit(): void {
-    this._store.select<User>('profile').subscribe((profile) => {
+    this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getPostData();
     });

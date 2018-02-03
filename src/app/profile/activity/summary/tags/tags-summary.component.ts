@@ -5,7 +5,7 @@ import {Component, Input, OnInit, OnDestroy} from "@angular/core";
 import {Tag} from "../../../../models/tag";
 import {Angular2TokenService} from "angular2-token";
 import {User} from "../../../../models/user";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -23,7 +23,7 @@ export class TagsSummaryComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe((profile) => {
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getPostData();
     });

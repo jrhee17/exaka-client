@@ -8,7 +8,7 @@ import { Post } from '../models/post';
 import 'rxjs/add/operator/toPromise';
 import {Angular2TokenService} from "angular2-token";
 import {Store} from "@ngrx/store";
-import {POST_SET_DATA} from "./post.reducer";
+import {PostActionTypes} from "./post.actions";
 
 @Injectable()
 export class PostDetailService {
@@ -23,7 +23,7 @@ export class PostDetailService {
     let url = `posts/${id}`;
 
     return this._tokenService.get(url).toPromise().then((response) => {
-      this._store.dispatch({type: POST_SET_DATA, payload: response.json()});
+      this._store.dispatch({type: PostActionTypes.POST_SET_DATA, payload: response.json()});
       return ;
     }).catch(this.handleError);
   }

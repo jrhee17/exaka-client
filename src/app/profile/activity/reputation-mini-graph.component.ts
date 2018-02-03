@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Angular2TokenService} from "angular2-token";
 import {ScoreEventGroup} from "../../models/score-event-group";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {User} from "../../models/user";
 import {Subscription} from "rxjs";
 /**
@@ -34,7 +34,7 @@ export class ReputationMiniGraphComponent implements OnInit, OnDestroy {
   constructor(private _tokenService: Angular2TokenService, private _store: Store<User>) {}
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe((profile) => {
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getData();
     });

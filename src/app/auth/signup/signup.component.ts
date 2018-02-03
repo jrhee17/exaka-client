@@ -7,10 +7,10 @@ import {Angular2TokenService, RegisterData} from "angular2-token";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {matchingPasswords} from "../utils/form-validators";
 import {Router} from "@angular/router";
-import {AUTH_SET_DATA} from "../service/auth.reducer";
 import {Store} from "@ngrx/store";
 import {Auth} from "../service/auth";
 import {SlimLoadingBarService} from "ng2-slim-loading-bar";
+import {AuthActionTypes} from "../service/auth.actions";
 
 @Component({
   selector: 'signup',
@@ -60,7 +60,7 @@ export class SignupComponent {
       'github'
     ).subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this._router.navigateByUrl(localStorage.getItem('signInStoredUrlStorageKey') || '/');
       }, (error) => {
         console.log(error);
@@ -74,7 +74,7 @@ export class SignupComponent {
       'google'
     ).subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this._router.navigateByUrl(localStorage.getItem('signInStoredUrlStorageKey') || '/');
       }, (error) => {
         console.log(error);
@@ -86,7 +86,7 @@ export class SignupComponent {
   public exakaButtonClicked() : void {
     this._tokenService.signInOAuth('exaka').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this._router.navigateByUrl(localStorage.getItem('signInStoredUrlStorageKey') || '/');
       }, (error) => {
         console.log(error);
@@ -95,7 +95,7 @@ export class SignupComponent {
     );
   }
 
-  private isDevelopment(): boolean {
+  public isDevelopment(): boolean {
     return ENV === 'development';
   }
 

@@ -3,12 +3,12 @@
  */
 
 import {Component, ViewChild, ElementRef, HostListener, Input, EventEmitter, Output} from "@angular/core";
-import {AUTH_SET_DATA} from "../service/auth.reducer";
 import {Angular2TokenService} from "angular2-token";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
 import {NgbPopover} from "@ng-bootstrap/ng-bootstrap";
 import {Auth} from "../service/auth";
+import {AuthActionTypes} from "../service/auth.actions";
 @Component({
   selector: 'auth-modal',
   templateUrl: 'auth-modal.component.html',
@@ -49,7 +49,7 @@ export class AuthModalComponent {
   private githubButtonClicked() : void {
     this._tokenService.signInOAuth('github').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this.popover.close();
       }, (error) => {
         console.log(error);
@@ -61,7 +61,7 @@ export class AuthModalComponent {
   private googleButtonClicked() : void {
     this._tokenService.signInOAuth('google').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this.popover.close();
       }, (error) => {
         console.log(error);

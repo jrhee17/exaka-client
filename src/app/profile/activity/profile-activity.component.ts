@@ -3,11 +3,11 @@
  */
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {User} from "../../models/user";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Profile} from "selenium-webdriver/firefox";
-import {PROFILE_RESET, PROFILE_SET_DATA} from "../profile.reducer";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Angular2TokenService} from "angular2-token";
+import {ProfileActionTypes} from "../profile.actions";
 @Component({
   selector: 'profile-activity',
   templateUrl: './profile-activity.component.html'
@@ -20,11 +20,11 @@ export class ProfileActivityComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this._store.select<User>('profile').subscribe((profile) => this.profile = profile);
+    this._store.pipe(select<User, User>('profile')).subscribe((profile) => this.profile = profile);
     this._activatedRoute.parent.params.subscribe((param: Params) => {
       const id = param['id'];
       this._tokenService.get(`profiles/${id}`).subscribe((res) => {
-        this._store.dispatch({type: PROFILE_SET_DATA, payload: res.json()});
+        this._store.dispatch({type: ProfileActionTypes.PROFILE_SET_DATA, payload: res.json()});
       })
     })
   }

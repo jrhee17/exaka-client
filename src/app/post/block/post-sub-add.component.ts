@@ -5,14 +5,14 @@
 import {Component} from "@angular/core";
 import {Angular2TokenService} from "angular2-token";
 import {Post} from "../../models/post";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {SubBlock} from "../../models/sub-block";
-import {POST_ADD_SUBBLOCK} from "../post.reducer";
 import {ModelError} from "../../models/model-error";
 import {Router, ActivatedRoute, Params} from "@angular/router";
 import {AuthService} from "../../auth.service";
 import {Auth} from "../../auth/service/auth";
-import {AUTH_SET_DATA} from "../../auth/service/auth.reducer";
+import {PostActionTypes} from "../post.actions";
+import {AuthActionTypes} from "../../auth/service/auth.actions";
 
 @Component({
   selector: 'post-sub-add',
@@ -25,17 +25,17 @@ export class PostSubAddComponent {
 
   public auth: Auth;
 
-  constructor(private _tokenService: Angular2TokenService, private _store: Store<Post>,
+  constructor(private _tokenService: Angular2TokenService, private _postStore: Store<Post>, private _authStore: Store<Auth>,
                       private _router: Router, private _activatedRoute: ActivatedRoute, private _authService: AuthService) {
     this._activatedRoute.parent.params.subscribe((params: Params) => this.subBlock.post_id = params['id']);
-    this._store.select<Auth>('auth').subscribe((auth) => this.auth = auth);
+    this._authStore.pipe(select<Auth, Auth>('auth')).subscribe((auth) => this.auth = auth);
   }
 
   public submitButtonClicked(): void {
     this._authService.post('sub_blocks', this.subBlock).subscribe(
       (res) => {
         const subBlockData = res.json().data;
-        this._store.dispatch({type: POST_ADD_SUBBLOCK, payload: subBlockData});
+        this._postStore.dispatch({type: PostActionTypes.POST_ADD_SUBBLOCK, payload: subBlockData});
         this._router.navigate(["../../answers"], { relativeTo: this._activatedRoute, fragment: subBlockData._id });
       }, (error) => {
         console.log('PostSubAddComponent submitButtonClicked: ' + JSON.stringify(error));
@@ -58,7 +58,7 @@ export class PostSubAddComponent {
   private githubButtonClicked() : void {
     this._tokenService.signInOAuth('github').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._authStore.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
       }, (error) => {
         console.log(error);
         debugger;
@@ -69,7 +69,7 @@ export class PostSubAddComponent {
   private googleButtonClicked() : void {
     this._tokenService.signInOAuth('google').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._authStore.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
       }, (error) => {
         console.log(error);
         debugger;

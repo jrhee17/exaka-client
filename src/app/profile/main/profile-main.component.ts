@@ -2,7 +2,7 @@
  * Created by john on 26/06/2017.
  */
 import {Component, OnInit, OnDestroy} from "@angular/core";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {User} from "../../models/user";
 @Component({
@@ -17,7 +17,7 @@ export class ProfileMainComponent implements OnInit, OnDestroy {
   constructor(private _store: Store<User>) {}
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe((profile) => this.profile = profile);
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe((profile) => this.profile = profile);
   }
 
   public ngOnDestroy(): void {

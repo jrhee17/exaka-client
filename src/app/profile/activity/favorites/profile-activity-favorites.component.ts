@@ -5,7 +5,7 @@
 import {Component} from "@angular/core";
 import {Angular2TokenService} from "angular2-token";
 import {Subscription} from "rxjs";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Post} from "../../../models/post";
 import {User} from "../../../models/user";
 import {NgbTabChangeEvent} from "@ng-bootstrap/ng-bootstrap";
@@ -32,7 +32,7 @@ export class ProfileActivityFavoritesComponent {
 
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe(
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe(
       (profile) => {
         this.profile = profile;
         this.getPostData();

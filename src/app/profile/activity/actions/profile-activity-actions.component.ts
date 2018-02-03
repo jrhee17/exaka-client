@@ -2,7 +2,7 @@
  * Created by john on 19/06/2017.
  */
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Angular2TokenService} from "angular2-token";
 import {User} from "../../../models/user";
 import {BlockEvent} from "../../../models/block-event";
@@ -26,7 +26,7 @@ export class ProfileActivityActionsComponent implements OnInit, OnDestroy {
   constructor(private _store: Store<User>, private _tokenService: Angular2TokenService){}
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe((profile) => {
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getEventData();
     });

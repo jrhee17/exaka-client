@@ -3,13 +3,13 @@
  */
 
 import {Component} from "@angular/core";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Auth} from "../../auth/service/auth";
 
 import {Angular2TokenService} from "angular2-token";
-import {AUTH_SET_DATA} from "../../auth/service/auth.reducer";
 import {Router} from "@angular/router";
 import {ModelError} from "../../models/model-error";
+import {AuthActionTypes} from "../../auth/service/auth.actions";
 
 @Component({
   selector: 'profile-edit',
@@ -21,10 +21,10 @@ export class ProfileEditComponent {
   public modelError: ModelError;
 
   constructor(public _store: Store<Auth>, private _tokenService: Angular2TokenService, private _router: Router) {
-    _store.select('auth').subscribe((res) => this.tempUserData = new Auth(res));
+    _store.pipe(select<Auth, Auth>('auth')).subscribe((res) => this.tempUserData = new Auth(res));
   }
 
-  private canResetPassword(): boolean {
+  public canResetPassword(): boolean {
     return this.tempUserData.provider === 'email';
   }
 
@@ -37,7 +37,7 @@ export class ProfileEditComponent {
         console.log('ProfileEditComponent submit res: ' + JSON.stringify(res));
         this.successMessage = 'Profile successfully updated';
         setTimeout(() => this.successMessage = null, 2000);
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res.json().data});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res.json().data});
       }, (error) => {
         console.log('ProfileEditComponent submit error: ' + JSON.stringify(error));
         this.modelError = new ModelError(error.json().data);

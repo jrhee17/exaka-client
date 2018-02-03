@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {BlockEvent} from "../../../models/block-event";
 import {User} from "../../../models/user";
 import {Subscription} from "rxjs";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Angular2TokenService} from "angular2-token";
 import {NgbTabChangeEvent} from "@ng-bootstrap/ng-bootstrap";
 import {ScoreEvent} from "../../../models/score-event";
@@ -30,7 +30,7 @@ export class ProfileActivityReputationsComponent {
   constructor(private _store: Store<User>, private _tokenService: Angular2TokenService){}
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe((profile) => {
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getEventData();
     });

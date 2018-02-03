@@ -361,7 +361,7 @@ module.exports = function (options) {
 //        tsConfig: helpers.root('tsconfig.webpack.json'),
 //        resourceOverride: helpers.root('config/resource-override.js')
 	tsConfigPath: helpers.root('tsconfig.webpack.json'),
-	mainPath: helpers.root('src/main.browser.ts')
+	// mainPath: helpers.root('src/main.browser.ts')
       }),
 
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ko/),

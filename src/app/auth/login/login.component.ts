@@ -5,11 +5,11 @@ import {Component, ViewChild} from "@angular/core";
 
 import {Angular2TokenService, SignInData} from 'angular2-token';
 import {Router} from "@angular/router";
-import {AUTH_SET_DATA} from "../service/auth.reducer";
 import {Store} from "@ngrx/store";
 import {UserState} from "../../user.state";
 import {Auth} from "../service/auth";
 import {FormGroup, Form, NgForm} from "@angular/forms";
+import {AuthActionTypes} from "../service/auth.actions";
 
 @Component({
   selector: 'login',
@@ -32,7 +32,7 @@ export class LoginComponent {
     let self = this;
     this._tokenService.signIn(Object.assign({}, this.signInData)).subscribe(
       res => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res.json().data});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res.json().data});
         this._router.navigateByUrl(localStorage.getItem('signInStoredUrlStorageKey') || '/');
       }, error => {
         self.loginForm.resetForm({email: this.signInData.email});
@@ -48,7 +48,7 @@ export class LoginComponent {
     );
   }
 
-  private isDevelopment(): boolean {
+  public isDevelopment(): boolean {
     return ENV === 'development';
   }
 
@@ -63,7 +63,7 @@ export class LoginComponent {
   public githubButtonClicked() : void {
     this._tokenService.signInOAuth('github').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this._router.navigateByUrl(localStorage.getItem('signInStoredUrlStorageKey') || '/');
       }, (error) => {
         console.log(error);
@@ -75,7 +75,7 @@ export class LoginComponent {
   public googleButtonClicked() : void {
     this._tokenService.signInOAuth('google').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this._router.navigateByUrl(localStorage.getItem('signInStoredUrlStorageKey') || '/');
       }, (error) => {
         console.log(error);
@@ -87,7 +87,7 @@ export class LoginComponent {
   public exakaButtonClicked() : void {
     this._tokenService.signInOAuth('exaka').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
         this._router.navigateByUrl(localStorage.getItem('signInStoredUrlStorageKey') || '/');
       }, (error) => {
         console.log(error);
