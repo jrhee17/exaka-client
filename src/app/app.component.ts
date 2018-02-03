@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
   }
 
   private isAuthLoaded(): boolean {
-    return this.auth == null || this.auth == 'undefined';
+    return this.auth == null;
   }
 
   public signOut(): void {
