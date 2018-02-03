@@ -6,11 +6,11 @@ import {Component, AfterViewInit, Renderer, ElementRef} from "@angular/core";
 import {Post} from "../../models/post";
 import {Angular2TokenService} from "angular2-token";
 import {Store} from "@ngrx/store";
-import {POST_SET_DATA} from "../post.reducer";
 import {Router} from "@angular/router";
 import {ModelError} from "../../models/model-error";
 import {Observable} from "rxjs";
 import {Response} from "@angular/http";
+import {PostActionTypes} from "../post.actions";
 
 @Component({
   templateUrl: './post-add.component.html',
@@ -32,7 +32,7 @@ export class PostAddComponent {
   public addPostButtonClicked(): void {
     this._tokenService.post('posts', this.post).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_SET_DATA, payload: res.json()});
+        this._store.dispatch({type: PostActionTypes.POST_SET_DATA, payload: res.json()});
         this._router.navigateByUrl(`post/${res.json().data._id}`)
       }, (error) => {
         console.log('PostAddComponent addPostButtonClicked error' + error);

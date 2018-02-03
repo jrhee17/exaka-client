@@ -10,14 +10,14 @@ import {
 import { AppState } from './app.service';
 import {Angular2TokenService} from 'angular2-token';
 import {Router} from "@angular/router";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {UserState} from "./user.state";
-import {AUTH_SET_DATA, AUTH_RESET_DATA} from "./auth/service/auth.reducer";
 import {Auth} from "./auth/service/auth";
 import {Post} from "./models/post";
 
 import * as log from 'loglevel';
+import {AuthActionTypes} from "./auth/service/auth.actions";
 
 /*
  * App Component
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
 
     this._tokenService.init(this.tokenServiceParams);
 
-    const store = this._store.select<Auth>('auth');
+    const store = this._store.pipe(select<Auth, Auth>('auth'));
     store.subscribe((obj) => {
       if(obj) {
         this.links = {profile: ['profiles', obj._id]};
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
     if(this._tokenService.userSignedIn()) {
       this._tokenService.validateToken().subscribe(
         (res) => {
-          this._store.dispatch({type: AUTH_SET_DATA, payload: res.json().data} );
+          this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res.json().data} );
         }, (error) => {
           log.info("AppComponent constructor validateToken error");
           this._router.navigateByUrl('/');
@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
   public signOut(): void {
     this._tokenService.signOut().subscribe(
       (res) => {
-        this._store.dispatch(({type: AUTH_RESET_DATA}));
+        this._store.dispatch(({type: AuthActionTypes.AUTH_RESET_DATA}));
         // window.location.reload();
       }, (error) => {
         log.info('AppComponent signOut error');

@@ -7,7 +7,7 @@ import {SubBlock} from "../../../models/sub-block";
 import {User} from "../../../models/user";
 import {Subscription} from "rxjs";
 import {Angular2TokenService} from "angular2-token";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {NgbTabChangeEvent} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'profile-activity-answers',
@@ -34,7 +34,7 @@ export class ProfileActivityAnswersComponent implements OnInit, OnDestroy {
 
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe(
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe(
       (profile) => {
         this.profile = profile;
         this.getPostData();

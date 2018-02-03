@@ -6,7 +6,7 @@ import {Subscription} from "rxjs";
 import {BlockEvent} from "../../../models/block-event";
 import {User} from "../../../models/user";
 import {Angular2TokenService} from "angular2-token";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {NgbTabChangeEvent} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'profile-activity-responses',
@@ -25,7 +25,7 @@ export class ProfileActivityResponsesComponent {
   constructor(private _store: Store<User>, private _tokenService: Angular2TokenService){}
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe((profile) => {
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getEventData();
     });

@@ -3,7 +3,7 @@ import {
   ActivatedRoute, Params, CanActivate, Router, RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from "@angular/router";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Auth} from "../auth/service/auth";
 /**
  * Created by john on 11/06/2017.
@@ -15,7 +15,7 @@ export class ProfileOwnerAccess implements CanActivate {
   private auth: Auth;
 
   constructor(private _store: Store<Auth>, private _router: Router) {
-    this._store.select<Auth>('auth').subscribe((auth) => this.auth = auth);
+    this._store.pipe(select<Auth, Auth>('auth')).subscribe((auth) => this.auth = auth);
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

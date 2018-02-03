@@ -4,12 +4,12 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Comment} from "../models/comment";
 import {Angular2TokenService} from "angular2-token";
-import {Store} from "@ngrx/store";
-import {POST_ADD_COMMENT} from "../post/post.reducer";
+import {Store, select} from "@ngrx/store";
 import {Auth} from "../auth/service/auth";
 import {Router} from "@angular/router";
-import {AUTH_SET_DATA} from "../auth/service/auth.reducer";
 import {Post} from "../models/post";
+import {PostActionTypes} from "../post/post.actions";
+import {AuthActionTypes} from "../auth/service/auth.actions";
 @Component({
   selector: 'comment-add',
   templateUrl: 'comment-add.component.html'
@@ -29,8 +29,8 @@ export class CommentAddComponent {
 
   public auth: Auth;
 
-  constructor(private _tokenService: Angular2TokenService, private _store: Store<Post>, private _router: Router) {
-    this._store.select<Auth>('auth').subscribe( (auth) => this.auth = auth);
+  constructor(private _tokenService: Angular2TokenService, private _postStore: Store<Post>, private _authStore: Store<Auth>, private _router: Router) {
+    this._authStore.pipe(select<Auth, Auth>('auth')).subscribe( (auth) => this.auth = auth);
   }
 
   private commentButtonClicked(): void {
@@ -44,7 +44,7 @@ export class CommentAddComponent {
 
     this._tokenService.post('comments', this.comment).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_ADD_COMMENT, payload: res.json()});
+        this._postStore.dispatch({type: PostActionTypes.POST_ADD_COMMENT, payload: res.json()});
         this.complete.emit();
       }, (error) => {
         console.log('CommentAddComponent addCommentButtonClicked');
@@ -66,7 +66,7 @@ export class CommentAddComponent {
   private githubButtonClicked() : void {
     this._tokenService.signInOAuth('github').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._authStore.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
       }, (error) => {
         console.log(error);
         debugger;
@@ -77,7 +77,7 @@ export class CommentAddComponent {
   private googleButtonClicked() : void {
     this._tokenService.signInOAuth('google').subscribe(
       (res) => {
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res});
+        this._authStore.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res});
       }, (error) => {
         console.log(error);
         debugger;

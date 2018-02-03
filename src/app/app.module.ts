@@ -80,7 +80,7 @@ type StoreType = {
     AuthModule,
     ProfileModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
-    StoreModule.provideStore({auth: authReducer, post: postReducer, profile: profileReducer}),
+    StoreModule.forRoot({auth: authReducer, post: postReducer, profile: profileReducer}),
     NgbModule.forRoot(),
     PostModule,
     TagInputModule,

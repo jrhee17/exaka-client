@@ -7,7 +7,7 @@ import {Angular2TokenService} from "angular2-token";
 import {NgbTabChangeEvent} from "@ng-bootstrap/ng-bootstrap";
 import {MainBlock} from "../../../models/main-block";
 import {Block} from "../../../models/block";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {User} from "../../../models/user";
 @Component({
   selector: 'profile-main-posts',
@@ -32,7 +32,7 @@ export class ProfileMainPostsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this._store.select<User>('profile').subscribe((profile) => {
+    this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getPostData();
     });

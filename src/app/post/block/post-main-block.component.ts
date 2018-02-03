@@ -4,11 +4,6 @@ import {Tag} from "../../models/tag";
 import {Store} from "@ngrx/store";
 import {Auth} from "../../auth/service/auth";
 import {Angular2TokenService} from "angular2-token";
-import {
-  AUTH_DOWNVOTE_BLOCK, AUTH_UPVOTE_BLOCK, AUTH_FAVORITE_BLOCK,
-  AUTH_SET_DATA
-} from "../../auth/service/auth.reducer";
-import {POST_MERGE_SUBBLOCK, POST_MERGE_MAINBLOCK} from "../post.reducer";
 import {NgbModal, NgbPopover} from "@ng-bootstrap/ng-bootstrap";
 import {AuthService} from "../../auth.service";
 import {Router} from "@angular/router";
@@ -17,6 +12,8 @@ import {AlertPopoverComponent} from "../../utils/component/alert-popover.compone
 
 import * as log from 'loglevel';
 import {LoggerService} from "../../utils/logger.service";
+import {PostActionTypes} from "../post.actions";
+import {AuthActionTypes} from "../../auth/service/auth.actions";
 
 /**
  * Created by john on 14/05/2017.
@@ -57,7 +54,7 @@ export class PostMainBlockComponent {
   private close(): void {
     this._authService.post('main_blocks/close', {block_id: this.mainBlock._id}).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_MERGE_MAINBLOCK, payload: res.json().data});
+        this._store.dispatch({type: PostActionTypes.POST_MERGE_MAINBLOCK, payload: res.json().data});
       }, (error) => {
         console.log('PostMainBlockComponent close()');
         debugger;
@@ -68,8 +65,8 @@ export class PostMainBlockComponent {
   protected upvote(): void {
     this._authService.post('main_blocks/upvote', {id: this.mainBlock._id}).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_MERGE_MAINBLOCK, payload: res.json().data.main_block});
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res.json().data.auth});
+        this._store.dispatch({type: PostActionTypes.POST_MERGE_MAINBLOCK, payload: res.json().data.main_block});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res.json().data.auth});
       }, (error) => {
         this._loggerService.error('Upvote has failed -- this.mainBlock._id: %s error: %s', this.mainBlock._id, error);
         this.upvoteAlert.display('Upvote has failed -- please contact system admin');
@@ -80,8 +77,8 @@ export class PostMainBlockComponent {
   private downvote(): void {
     this._authService .post('main_blocks/downvote', {id: this.mainBlock._id}).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_MERGE_MAINBLOCK, payload: res.json().data.main_block});
-        this._store.dispatch({type: AUTH_SET_DATA, payload: res.json().data.auth});
+        this._store.dispatch({type: PostActionTypes.POST_MERGE_MAINBLOCK, payload: res.json().data.main_block});
+        this._store.dispatch({type: AuthActionTypes.AUTH_SET_DATA, payload: res.json().data.auth});
       }, (error) => {
         this._loggerService.error('Downvote has failed -- this.mainBlock._id: %s error: %s', this.mainBlock._id, error);
         this.downvoteAlert.display('Downvote has failed -- please contact system admin');
@@ -92,7 +89,7 @@ export class PostMainBlockComponent {
   private favorite(): void {
     this._authService.post('main_blocks/favorite', {id: this.mainBlock._id}).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_MERGE_MAINBLOCK, payload: res.json().data.main_block});
+        this._store.dispatch({type: PostActionTypes.POST_MERGE_MAINBLOCK, payload: res.json().data.main_block});
       }, (error) => {
         console.log('PostMainBlockComponent downvote');
         debugger;

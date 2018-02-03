@@ -4,7 +4,7 @@
 
 import {Component} from "@angular/core";
 import {Angular2TokenService} from "angular2-token";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Subscription} from "rxjs";
 import {Tag} from "../../../models/tag";
 import {User} from "../../../models/user";
@@ -31,7 +31,7 @@ export class ProfileActivityTagsComponent {
 
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe(
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe(
       (profile) => {
         this.profile = profile;
         this.getPostData();

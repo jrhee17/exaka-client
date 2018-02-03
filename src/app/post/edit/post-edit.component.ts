@@ -4,14 +4,14 @@
 
 import {Component} from "@angular/core";
 import {Post} from "../../models/post";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 
 import {Angular2TokenService} from "angular2-token";
 import {PostDetailService} from "../post-detail.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {POST_SET_DATA} from "../post.reducer";
 import {ModelError} from "../../models/model-error";
+import {PostActionTypes} from "../post.actions";
 
 @Component({
   selector: 'post-edit',
@@ -32,13 +32,13 @@ export class PostEditComponent {
     _route.params.subscribe((params) => {
       this._postDetailService.getPost(params['id'])
     });
-    _store.select('post').subscribe((post) => this.post = new Post(post));
+    _store.pipe(select<Post, Post>('post')).subscribe((post) => this.post = new Post(post));
   }
 
   public updatePostButtonClicked(): void {
     this._tokenService.put(`posts/${this.post._id}`, this.post).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_SET_DATA, payload: res.json()});
+        this._store.dispatch({type: PostActionTypes.POST_SET_DATA, payload: res.json()});
         this._router.navigateByUrl(`post/${res.json().data._id}`)
       }, (error) => {
         console.log('PostAddComponent addPostButtonClicked error' + error);

@@ -5,9 +5,9 @@ import {Store} from "@ngrx/store";
 import {Angular2TokenService} from "angular2-token";
 import {Router, ActivatedRoute} from "@angular/router";
 import {PostDetailService} from "../post-detail.service";
-import {POST_UPDATE_SUBBLOCK} from "../post.reducer";
 import {AuthService} from "../../auth.service";
 import {Post} from "../../models/post";
+import {PostActionTypes} from "../post.actions";
 /**
  * Created by john on 25/05/2017.
  */
@@ -50,7 +50,7 @@ export class PostSubEditComponent {
     this.subBlock.post_id = this.postId;
     this._authService.put(`sub_blocks/${this.subBlockId}`, this.subBlock).subscribe(
       (res) => {
-        this._store.dispatch({type: POST_UPDATE_SUBBLOCK, payload: res.json()});
+        this._store.dispatch({type: PostActionTypes.POST_UPDATE_SUBBLOCK, payload: res.json()});
         this._router.navigate([`post/${this.postId}/answers`]);
       }, (error) => {
         console.log('PostSubEditComponent updateButtonPressed');

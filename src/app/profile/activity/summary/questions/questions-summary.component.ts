@@ -7,7 +7,7 @@ import {Angular2TokenService} from "angular2-token";
 import {NgbTabChangeEvent} from "@ng-bootstrap/ng-bootstrap";
 import {Post} from "../../../../models/post";
 import {User} from "../../../../models/user";
-import {Store} from "@ngrx/store";
+import {Store, select} from "@ngrx/store";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -28,7 +28,7 @@ export class QuestionsSummaryComponent implements OnInit, OnDestroy {
   constructor(private _tokenService: Angular2TokenService, private _store: Store<User>) {}
 
   public ngOnInit(): void {
-    this.subscription = this._store.select<User>('profile').subscribe((profile) => {
+    this.subscription = this._store.pipe(select<User, User>('profile')).subscribe((profile) => {
       this.profile = profile;
       this.getPostData();
     });

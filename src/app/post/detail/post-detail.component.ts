@@ -2,8 +2,9 @@ import { OnInit, Component, OnDestroy } from '@angular/core';
 import { PostDetailService } from '../post-detail.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Post } from '../../models/post';
-import {Store} from "@ngrx/store";
-import {POST_RESET} from "../post.reducer";
+import {Store, select} from "@ngrx/store";
+import {PostActionTypes} from "../post.actions";
+
 
 @Component ({
   selector: 'post-detail',
@@ -26,14 +27,14 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       this.postDetailService.getPost(this.id);
     });
 
-    this._store.select<Post>('post').subscribe(
+    this._store.pipe(select<Post, Post>('post')).subscribe(
       post => this.post= post
     );
   }
 
   public ngOnDestroy() {
     this.routeSub.unsubscribe();
-    this._store.dispatch({type: POST_RESET});
+    this._store.dispatch({type: PostActionTypes.POST_RESET});
   }
 
 }
